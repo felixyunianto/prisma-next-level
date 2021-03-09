@@ -13,5 +13,6 @@ module.exports = {
       status,
       error
     });
+    res.end();
   },
 };

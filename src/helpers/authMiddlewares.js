@@ -6,7 +6,6 @@ module.exports = {
     const bearerToken = req.header("x-access-token");
     if (!bearerToken) {
       form.error(res, "Access Error", 403, "You need login to access it");
-      res.end();
     } else {
       const token = bearerToken.split(" ")[1];
       try {
