@@ -8,8 +8,7 @@ const storage = multer.diskStorage({
     cb(null, "./public/image");
   },
   filename: (req, file, cb) => {
-    console.log(file);
-    const nameFormat = `${Date.now()}-${file.filename}${path.extname(
+    const nameFormat = `${Date.now()}-${file.fieldname}${path.extname(
       file.originalname
     )}`;
     cb(null, nameFormat);
@@ -18,6 +17,19 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
+  // fileFilter : (req, file, cb) => {
+  //   const ext = path.extname(file.originalname);
+  //   console.log(ext);
+  //   if (
+  //     ext !== ".jpg" &&
+  //     ext !== ".png" &&
+  //     ext !== ".jpeg" &&
+  //     ext !== ".svg" &&
+  //     ext !== ".gif"
+  //   ) {
+  //     return cb(null, "Error");
+  //   }
+  // },
   limits: 2 * 1000 * 1000,
 });
 
@@ -34,6 +46,5 @@ const singleUpload = (req, res, next) => {
     }
   });
 };
-
 
 module.exports = singleUpload;

@@ -7,52 +7,52 @@ module.exports = {
     prisma.products
       .findMany({})
       .then((data) => {
-        form.success(res, data, 200);
+        form.success(res, "Success Get All Products", 200, data);
       })
       .catch((error) => {
-        form.error(res, error, 500);
+        form.error(res, "Error Network", 500, error);
       });
   },
 
-  getProductById : (req, res) => {
-    const {id} = req.params
-    prisma.products.findUnique({
-      where : {
-        id: parseInt(id)
-      }
-    })
-    .then((data) => {
-      if(!data) {
-        form.error(res, "Data not found", 404);
-      }else{
-        form.success(res, data, 200);
-      }
-    })
-    .catch((error) => {
-      form.error(res, error, 500)
-    })
+  getProductById: (req, res) => {
+    const { id } = req.params;
+    prisma.products
+      .findUnique({
+        where: {
+          id: parseInt(id),
+        },
+      })
+      .then((data) => {
+        if (!data) {
+          form.error(res, "Get Book is Error", 404, "Data not found");
+        } else {
+          form.success(res, "Success Get Book", 200, data);
+        }
+      })
+      .catch((error) => {
+        form.error(res, "Error Network", 500, error);
+      });
   },
 
   postProduct: (req, res) => {
     const { body } = req;
-    
-    // console.log(req);
+    console.log("FILE ", req.file);
 
     const newBody = {
       ...body,
-      price : parseInt(body.price),
-      image : req.file.path
-    }
+      price: parseInt(body.price),
+      image: req.file.path,
+    };
 
     prisma.products
       .create({
         data: newBody,
       })
       .then((data) => {
-        form.success(res, data, 200);
+        form.success(res, "Create New Product is Successful", 200, data);
       })
       .catch((error) => {
-        form.error(res, error, 500);
+        form.error(res, "Error Network", 500, error);
       });
   },
 
@@ -62,8 +62,8 @@ module.exports = {
 
     const newBody = {
       ...body,
-      price : parseInt(body.price)
-    }
+      price: parseInt(body.price),
+    };
 
     prisma.products
       .update({
@@ -73,10 +73,10 @@ module.exports = {
         },
       })
       .then((data) => {
-        form.success(res, data, 200);
+        form.success(res, "Update Book is Successful", 200, data);
       })
       .catch((error) => {
-        form.error(res, data, 500);
+        form.error(res, "Error Network", 500, error);
       });
   },
 
@@ -89,10 +89,10 @@ module.exports = {
         },
       })
       .then((data) => {
-        form.success(res, data, 200);
+        form.success(res, "Delete Book is Successful", 200, data);
       })
       .catch((error) => {
-        form.error(res, error, 500);
+        form.error(res, "Error Network", 500, error);
       });
   },
 };

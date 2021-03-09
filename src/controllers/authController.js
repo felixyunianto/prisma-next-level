@@ -20,10 +20,10 @@ module.exports = {
           data: newBody,
         })
         .then((data) => {
-          form.success(res, data, 200);
+          form.success(res, "Sign Up is Successful", 200, data);
         })
         .catch((error) => {
-          form.error(res, error, 500);
+          form.error(res, "Sign Up is Error", 500, error);
         });
     });
   },
@@ -38,7 +38,7 @@ module.exports = {
       })
       .then((data) => {
         if (!data) {
-          form.error(res, "Users are not available on our records", 404);
+          form.error(res, "Error Sign In", 404, "Users are not available on our records");
         } else {
           const isValid = bcrypt.compareSync(body.password, data.password);
           if (isValid) {
@@ -60,7 +60,7 @@ module.exports = {
                 token: token
             }
 
-            form.success(res, newData, 200);
+            form.success(res, "Sign In is Successful", 200, newData);
 
           }
         }

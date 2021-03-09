@@ -1,17 +1,17 @@
 module.exports = {
-  success: (res, data, status) => {
+  success: (res, msg, status, data) => {
     res.status(status).send({
-      msg: "Success",
-      status: status,
-      data: data,
+      msg,
+      status,
+      data,
     });
   },
 
-  error: (res, error, status) => {
+  error: (res, msg, status, error) => {
     res.status(status).send({
-      msg: "Error",
-      status: status,
-      error: error,
+      msg,
+      status,
+      error
     });
   },
 };
