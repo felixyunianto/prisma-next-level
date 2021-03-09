@@ -2,7 +2,10 @@ const jwt = require("jsonwebtoken");
 const form = require("../helpers/form");
 
 module.exports = {
-  checkLogin: (req, res, next) => {
+  checkLogin: (err, req, res, next) => {
+    if (err.stack) {
+      console.log(err);
+    }
     const bearerToken = req.header("x-access-token");
     if (!bearerToken) {
       form.error(res, "Access Error", 403, "You need login to access it");
